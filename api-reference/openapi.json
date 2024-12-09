@@ -267,27 +267,78 @@
       "Owner": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string",
-            "description": "The unique ID of the API key owner."
+          "account": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "The unique ID of the API key owner."
+              },
+              "secret": {
+                "type": "string",
+                "description": "The secret key of the API key owner."
+              }
+            }
           },
-          "name": {
-            "type": "string",
-            "description": "The name of the API key owner."
+          "stats": {
+            "type": "object",
+            "properties": {
+              "total_requests": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The total number of API requests made by the owner."
+              },
+              "total_storage_mb": {
+                "type": "number",
+                "format": "float",
+                "description": "The total amount of storage used by the owner, in MB."
+              }
+            }
           },
-          "email": {
-            "type": "string",
-            "description": "The email address of the API key owner."
-          },
-          "usage": {
-            "type": "integer",
-            "format": "int32",
-            "description": "The number of API requests made."
-          },
-          "limit": {
-            "type": "integer",
-            "format": "int32",
-            "description": "The maximum number of API requests allowed."
+          "limits": {
+            "type": "object",
+            "properties": {
+              "requests": {
+                "type": "object",
+                "properties": {
+                  "sent": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "The number of API requests sent by the owner."
+                  },
+                  "remaining": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "The number of remaining API requests allowed."
+                  },
+                  "used_percentage": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "The percentage of API request quota used."
+                  }
+                }
+              },
+              "storage": {
+                "type": "object",
+                "properties": {
+                  "used_mb": {
+                    "type": "number",
+                    "format": "float",
+                    "description": "The amount of storage used, in MB."
+                  },
+                  "remaining_mb": {
+                    "type": "number",
+                    "format": "float",
+                    "description": "The amount of storage remaining, in MB."
+                  },
+                  "used_percentage": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "The percentage of storage quota used."
+                  }
+                }
+              }
+            }
           }
         }
       },
