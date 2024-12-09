@@ -60,28 +60,28 @@
       "post": {
         "description": "Uploads a new file.",
         "parameters": [
-        {
-          "name": "user_id",
-          "in": "query",
-          "description": "The ID of the user to associate the file with. If not provided, the file will be uploaded anonymously.",
-          "required": false,
-          "schema": {
-            "type": "string",
-            "example": "user-12345"
-          }
-        }
-      ],
-      "requestBody": {
-        "description": "The file to upload.",
-        "content": {
-          "multipart/form-data": {
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "The ID of the user to associate the file with. If not provided, the file will be uploaded anonymously.",
+            "required": false,
             "schema": {
-              "$ref": "#/components/schemas/NewFile"
+              "type": "string",
+              "example": "user-12345"
             }
           }
+        ],
+        "requestBody": {
+          "description": "The file to upload.",
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/NewFile"
+              }
+            }
+          },
+          "required": true
         },
-        "required": true
-      },
         "responses": {
           "201": {
             "description": "File uploaded successfully.",
