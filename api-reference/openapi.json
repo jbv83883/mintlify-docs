@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "OpenAPI File Store",
-    "description": "A sample API that demonstrates file operations",
+    "title": "File Management API",
+    "description": "An API to manage files with upload, retrieval, and deletion operations.",
     "license": {
       "name": "MIT"
     },
@@ -19,15 +19,15 @@
     }
   ],
   "paths": {
-    "/files/get-file": {
+    "/files": {
       "get": {
-        "description": "Retrieves a file from the system by its ID",
+        "description": "Retrieve a list of files or a specific file by ID.",
         "parameters": [
           {
             "name": "id",
             "in": "query",
-            "description": "The ID of the file to retrieve",
-            "required": true,
+            "description": "The ID of the file to retrieve.",
+            "required": false,
             "schema": {
               "type": "integer",
               "format": "int64"
@@ -36,7 +36,46 @@
         ],
         "responses": {
           "200": {
-            "description": "File retrieved successfully",
+            "description": "Files retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/File"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unexpected error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Uploads a new file.",
+        "requestBody": {
+          "description": "The file to upload.",
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/NewFile"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "File uploaded successfully.",
             "content": {
               "application/json": {
                 "schema": {
@@ -46,7 +85,7 @@
             }
           },
           "400": {
-            "description": "Unexpected error",
+            "description": "Unexpected error.",
             "content": {
               "application/json": {
                 "schema": {
@@ -60,12 +99,12 @@
     },
     "/files/delete-file": {
       "delete": {
-        "description": "Deletes a file by its ID",
+        "description": "Deletes a file by its ID.",
         "parameters": [
           {
             "name": "id",
             "in": "query",
-            "description": "The ID of the file to delete",
+            "description": "The ID of the file to delete.",
             "required": true,
             "schema": {
               "type": "integer",
@@ -75,49 +114,11 @@
         ],
         "responses": {
           "204": {
-            "description": "File deleted successfully",
+            "description": "File deleted successfully.",
             "content": {}
           },
           "400": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/files/upload-file": {
-      "post": {
-        "description": "Uploads a new file",
-        "requestBody": {
-          "description": "The file data to upload",
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/components/schemas/NewFile"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "File uploaded successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/File"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Unexpected error",
+            "description": "Unexpected error.",
             "content": {
               "application/json": {
                 "schema": {
@@ -138,20 +139,20 @@
           "id": {
             "type": "integer",
             "format": "int64",
-            "description": "The unique ID of the file"
+            "description": "The unique ID of the file."
           },
           "name": {
             "type": "string",
-            "description": "The name of the file"
+            "description": "The name of the file."
           },
           "size": {
             "type": "integer",
             "format": "int32",
-            "description": "The size of the file in bytes"
+            "description": "The size of the file in bytes."
           },
           "url": {
             "type": "string",
-            "description": "The URL to access the file"
+            "description": "The URL to access the file."
           }
         }
       },
@@ -160,12 +161,12 @@
         "properties": {
           "name": {
             "type": "string",
-            "description": "The name of the file"
+            "description": "The name of the file."
           },
           "file": {
             "type": "string",
             "format": "binary",
-            "description": "The file to upload"
+            "description": "The binary content of the file to upload."
           }
         }
       },
@@ -174,10 +175,12 @@
         "properties": {
           "error": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "description": "The error code."
           },
           "message": {
-            "type": "string"
+            "type": "string",
+            "description": "The error message."
           }
         }
       }
