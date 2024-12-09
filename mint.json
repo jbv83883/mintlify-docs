@@ -79,6 +79,7 @@
       "pages": [
         "api-reference/files/upload-file",
         "api-reference/files/get-file",
+        "api-reference/files/list-files",
         "api-reference/files/delete-file"
       ]
     },
