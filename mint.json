@@ -73,7 +73,8 @@
       "pages": [
         "api-reference/introduction",
         "api-reference/authentication",
-        "api-reference/errors"
+        "api-reference/errors",
+        "api-reference/limits"
       ]
     },
     {
