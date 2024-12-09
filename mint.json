@@ -75,11 +75,17 @@
       ]
     },
     {
-      "group": "Endpoint Examples",
+      "group": "Files",
       "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        "api-reference/files/upload-file",
+        "api-reference/files/get-file",
+        "api-reference/files/delete-file"
+      ]
+    },
+    {
+      "group": "Developers",
+      "pages": [
+        "api-reference/developers/get-self"
       ]
     }
   ],
