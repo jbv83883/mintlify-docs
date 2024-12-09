@@ -19,8 +19,8 @@
     }
   ],
   "paths": {
-    "/plants": {
-      "get": {
+    "/files": {
+      "get-file": {
         "description": "Returns all plants from the system that the user has access to",
         "parameters": [
           {
