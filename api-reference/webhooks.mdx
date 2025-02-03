@@ -1,0 +1,173 @@
+---
+title: 'Webhooks'
+description: 'Webhooks can be used to receive real-time notifications about events occurring within your store'
+---
+
+## General guidance
+
+Sellix provides a webhooks system allowing you to subscribe to events with Webhook Endpoints such as Product/Payment Order status webhooks and Dynamic Product webhooks.
+
+<Warning>Please note only HTTPS webhook URLs are supported.</Warning>
+
+A [webhook simulator](https://dashboard.sellix.io/developer/webhooks/logs) is available allowing you to simulate webhook events to a specified URL.
+
+<Card
+  title="Create Webhook"
+  icon="plus"
+  href="https://dashboard.sellix.io/developer/webhooks/all"
+>
+  Configure your first webhook to receive instant & live notifications about things happening within your Store.
+</Card>
+
+## Signing/Validating
+
+To verify the authenticity of a webhook request and its payload, each webhook request includes a `X-Sellix-Signature` header with a HMAC signature comprised of the JSON encoded request body and your webhook secret. Your webhook secret can be changed in your [settings page](https://dashboard.sellix.io/settings/shop/general).
+
+<Info>Unlike the API Key, a webhook secret is unique for every shop.</Info>
+
+### Signature verification code samples
+
+<AccordionGroup>
+  <Accordion title="PHP" icon="php">
+    ```php
+    <?php
+      $payload = file_get_contents('php://input');
+      $secret = 'WEBHOOK_SECRET'; // replace with your webhook secret, you can find it in your security settings on the sellix dashboard.
+      $header_signature = $_SERVER['HTTP_X_SELLIX_SIGNATURE']; // get our signature header
+      $signature = hash_hmac('sha512', $payload, $secret);
+
+      if (hash_equals($signature, $header_signature)) {
+        // handle valid webhook
+      } else {
+        // invalid webhook
+      }
+    ?>
+    ```
+  </Accordion>
+
+  <Accordion title="Node JS" icon="js">
+    ```js
+    const crypto = require('crypto');
+    const secret = 'WEBHOOK_SECRET'; // replace with your webhook secret, you can find it in your security settings on the sellix dashboard.
+    const headerSignature = req.headers['x-sellix-unescaped-signature'];
+    const payload = req.body;
+
+    const signature = crypto
+      .createHmac('sha512', secret)
+      .update(payload)
+      .digest('hex');
+
+    if (crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(headerSignature, 'utf-8'))) {
+      // handle valid webhook
+    } else {
+      // invalid webhook
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Python" icon="python">
+    ```python
+    import hashlib
+    import hmac
+    import sys
+
+    payload = sys.stdin.buffer.read()
+    secret = b'WEBHOOK_SECRET' # replace with your webhook secret, you can find it in your security settings on the sellix dashboard.
+    header_signature = bytes.fromhex(sys.stdin.headers['X-Sellix-Signature']) # get our signature header
+    # depending on your server configuration, you might need to use the X-Sellix-Unescaped-Signature header instead
+    signature = hmac.new(secret, payload, hashlib.sha512).hexdigest()
+
+    if hmac.compare_digest(signature, header_signature):
+      # handle valid webhook
+    else:
+      # invalid webhook
+
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Events
+
+Each webhook request will feature a `X-Sellix-Event` header containing the webhook event type. A list of supported events from Webhook Endpoints can be found below.
+
+| Event | Description |
+| ----- | ----------- |
+| `order:created` | The order has been created. |
+| `order:updated` | The order status has changed. |
+| `order:partial` | The order status is now partial, indicating a cryptocurrency payment that has been sent but not covering the whole amount. |
+| `order:paid` | The order has been flagged as paid, this is the final state. |
+| `order:cancelled` | The order has been cancelled either by the fraud shield, the merchant, or due to not receiving a payment within the time window. |
+| `order:disputed` | A Stripe/PayPal dispute has been opened against one of your stores. |
+| `product:created` | A product has been created. |
+| `product:stock` | A product's stock has fallen below the warning range. |
+| `product:edited` | A product has been edited. |
+| `product:dynamic` | This event is issued only for dynamic products, to learn more about dynamic products, [click here](/api-reference/dynamic-products). |
+| `query:created` | A query has been created for one of your shops. |
+| `query:replied` | A reply has been received for one of your queries. |
+| `feedback:received` | One of your customers left a feedback for you. |
+| `subscription:trial:started` | A trial has been started for one of your subscriptions. |
+| `subscription:trial:ended` | A trial has ended for one of your subscriptions, this is usually followed by an order:created event. |
+| `subscription:created` | A subscription has been created, to learn how to better handle subscriptions, please [see this guide](/api-reference/subscriptions). |
+| `subscription:updated` | A subscription has been updated. |
+| `subscription:renewed` | A subscription has been renewed, after receiving a new payment. |
+| `subscription:cancelled` | A subscription has been canceled, either due to not receiving a payment or by a manual action of the customer. |
+| `subscription:upcoming` | A customer will have to pay for one of your subscriptions in the next 72 hours. |
+| `order:paid:product` | This event is the same as order:paid, however the :product segment indicates that it originates from a webhook URL configured within a product, which is now deprecated. |
+| `order:partial:product` | Similar to order:paid, this event is the same as its parent. |
+| `order:created:product` | Similar to order:paid, this event is the same as its parent. |
+| `order:disputed:product` | Similar to order:paid, this event is the same as its parent. |
+| `order:cancelled:product` | Similar to order:paid, this event is the same as its parent. |
+| `order:updated:product` | Similar to order:paid, this event is the same as its parent. |
+| `subscription-v2:created` | Triggered once when product subscription is created (not started yet). |
+| `subscription-v2:started` | Triggered once when product subscription start date arrives. |
+| `subscription-v2:ended` | Triggered once when product subscription end date arrives. |
+| `subscription-v2:canceled` | Triggered at the moment when product subscription is canceled. |
+| `subscription-v2:canceled-merchant` | Triggered when a product subscription is canceled by the merchant. |
+| `subscription-v2:canceled-customer` | Triggered when a product subscription is canceled by the customer. |
+| `subscription-v2:canceled-api` | Triggered when a product subscription is canceled by the developer. |
+| `subscription-v2:plan:created` | Triggered once when a product plan subscription is created (not started yet). |
+| `subscription-v2:plan:started` | Triggered once when a product plan subscription start date arrives. |
+| `subscription-v2:plan:ended` | Triggered once when a product plan subscription end date arrives. |
+| `subscription-v2:plan:canceled` | Triggered at the moment when a product plan subscription is canceled. |
+| `subscription-v2:plan:canceled-merchant` | Triggered when a product plan subscription is canceled by the merchant. |
+| `subscription-v2:plan:canceled-customer` | Triggered when a product plan subscription is canceled by the customer. |
+| `subscription-v2:plan:canceled-api` | Triggered when a product plan subscription is canceled by the developer. |
+| `subscription-v2:plan:upgrade` | Triggered when a new plan subscription occurs (the new plan may be postponed until the current payment interval ends). |
+| `subscription-v2:plan:downgrade` | Triggered when a plan subscription is downgraded (the new plan may be postponed until the current payment interval ends). |
+| `subscription-v2:plan:gateway-changed` | Triggered when the customer changes the product plan subscription gateway. |
+| `subscription-v2:plan:payment-method-changed` | Triggered when the customer changes the product plan subscription payment method. |
+| `subscription-v2:plan:payment-succeeded` | Triggered when the payment for a plan succeeds. |
+| `subscription-v2:plan:payment-canceled` | Triggered when the payment for a plan is canceled. |
+| `subscription-v2:plan:payment-failed` | Triggered when the payment for a plan fails. |
+| `subscription-v2:trial-interval:created` | Triggered when a trial payment interval is created. |
+| `subscription-v2:trial-interval:started` | Triggered when a trial payment interval start date arrives. |
+| `subscription-v2:trial-interval:ended` | Triggered when a trial payment interval end date arrives. |
+| `subscription-v2:trial-interval:canceled` | Triggered when a trial payment interval is canceled. |
+| `subscription-v2:trial-interval:canceled-merchant` | Triggered when a trial payment interval is canceled by the merchant. |
+| `subscription-v2:trial-interval:canceled-customer` | Triggered when a trial payment interval is canceled by the customer. |
+| `subscription-v2:trial-interval:canceled-api` | Triggered when a trial payment interval is canceled by the developer. |
+| `subscription-v2:payment-interval:created` | Triggered when a payment interval is created. |
+| `subscription-v2:payment-interval:started` | Triggered when a payment interval start date arrives. |
+| `subscription-v2:payment-interval:ended` | Triggered when a payment interval end date arrives. |
+| `subscription-v2:payment-interval:canceled` | Triggered when a payment interval is canceled. |
+| `subscription-v2:payment-interval:canceled-merchant` | Triggered when a payment interval is canceled by the merchant. |
+| `subscription-v2:payment-interval:canceled-customer` | Triggered when a payment interval is canceled by the customer. |
+| `subscription-v2:payment-interval:canceled-api` | Triggered when a payment interval is canceled by the developer. |
+| `subscription-v2:payment-interval:upcoming` | Triggered when a payment interval's end date is in 1 week. |
+| `subscription-v2:payment-interval:payment-succeeded` | Triggered when a payment succeeds. |
+| `subscription-v2:payment-interval:payment-canceled` | Triggered when a payment is canceled. |
+| `subscription-v2:payment-interval:payment-failed` | Triggered when a payment fails. |
+| `subscription-v2:payment-interval:charge-retried` | Triggered when a charge is retried for a payment interval. |
+| `subscription-v2:payment-interval:charge-failed` | Triggered when a charge fails for a payment interval. |
+
+> **Note**: The "canceled" event is common for all types of cancellations and may be triggered by the customer, merchant or via our API.
+
+## Logs
+
+Each webhook request will create a [Webhook Log](https://dashboard.sellix.io/developer/webhooks/all). The object is created by the request that has been sent. Before the request's response has been received, the `response_code` will be 0, indicating it is pending.
+
+<Warning>Logs will only be kept for up to 30 days. After this period they will be deleted</Warning>
+
+## Whitelist Us
+
+Every request will be sent from `99.81.24.41`

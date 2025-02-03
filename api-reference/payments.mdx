@@ -1,0 +1,71 @@
+---
+title: 'Payments'
+description: 'The easiest way to create payments through the Sellix API'
+---
+
+## Checkout Flow
+
+We currently support two types of checkout flows for Sellix Payments: Integrated and White-label.
+You can also pass a `product_id` or multiple `product_ids` through a cart object.
+
+<Card title="Create a Payment" icon="money-simple-from-bracket" href="/api-reference/payments/post-payments">
+  Create a payment to collect revenue from your customers, pass any amount, gateway, and configuration.
+</Card>
+<CardGroup cols={2}>
+  <Card title="Complete a Payment" icon="check-to-slot" href="/api-reference/payments/post-payments">
+    Flag a payment as completed to process the order
+  </Card>
+  <Card title="Delete a Payment" icon="xmark" href="/api-reference/payments/delete-payments">
+    Cancel a payment to void it from receiving any transaction
+  </Card>
+</CardGroup>
+<CardGroup cols={2}>
+  <Card title="Get Order" icon="dice-one" href="/api-reference/orders/get-order">
+    Get the details of one of your payments (referenced as `order` in the API)
+  </Card>
+  <Card title="List Orders" icon="bars-staggered" href="/api-reference/orders/list-orders">
+    List all the orders created on your store with pagination
+  </Card>
+</CardGroup>
+
+### Integrated
+
+With the integrated checkout option, Sellix handles the checkout aspect for you by only returning a unique payment URL. This unique URL contains our realtime checkout page.
+
+<Frame>
+  <img
+    className="block"
+    src="https://sellix.io/cdn-cgi/image/q=65/https://cdn.sellix.io/static/documentation/images/checkout.png"
+    alt="Checkout flow"
+  />
+</Frame>
+
+### White-label
+
+The white-label checkout flow provides the raw order created rather than a payment URL. With the raw order information, you are able to develop and integrate your own checkout experience completely separate from Sellix.
+
+<Info>To receive real-time status updates about the order, consider using our [Webhooks](/api-reference/webhooks)</Info>
+
+```json
+{
+  "invoice": {
+    "unqid": "sample-uniqid",
+    "total_display": 10,
+    "currency": "USD",
+    "crypto_address": "btc1sample...",
+    "crypto_amount": 1.28572,
+    ...
+  }
+}
+```
+
+### Products
+We offer the possibility to create payments for your products too. You can specify a `product_id`, and we will take care of the rest.
+
+<Frame>
+  <img
+    className="block"
+    src="https://sellix.io/cdn-cgi/image/q=65/https://cdn.sellix.io/static/documentation/images/all-products.png"
+    alt="Products"
+  />
+</Frame>

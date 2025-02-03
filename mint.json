@@ -1,0 +1,302 @@
+{
+  "name": "Sellix for Developers",
+  "logo": {
+    "dark": "/logo/dark.svg",
+    "light": "/logo/light.svg"
+  },
+  "favicon": "/favicon.svg",
+  "colors": {
+    "primary": "#6a32e6",
+    "light": "#dbd8fc",
+    "dark": "#6a32e6",
+    "anchors": {
+      "from": "#6a32e6",
+      "to": "#dbd8fc"
+    }
+  },
+  "feedback": {
+    "thumbsRating": true
+  },
+  "layout": "solidSidenav",
+  "sidebar": {
+    "items": "card"
+  },
+  "topbar": {
+    "style": "gradient"
+  },
+  "search": {
+    "location": "side"
+  },
+  "rounded": "default",
+  "topbarLinks": [
+    {
+      "name": "Support",
+      "url": "mailto:support@sellix.io"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Dashboard",
+    "url": "https://dashboard.sellix.io"
+  },
+  "tabs": [
+    {
+      "name": "API Reference",
+      "url": "api-reference"
+    },
+    {
+      "name": "Accept->Settle",
+      "url": "accept-settle"
+    },
+    {
+      "name": "Platforms",
+      "url": "platforms"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Community",
+      "icon": "discord",
+      "url": "https://sellix.io/discord"
+    },
+    {
+      "name": "Support",
+      "icon": "newspaper",
+      "url": "https://help.sellix.io"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Get Started",
+      "pages": [
+        "introduction",
+        "no-code",
+        "sellix-hosted"
+      ]
+    },
+    {
+      "group": "Products",
+      "pages": [
+        "products/wallet-and-crypto",
+        "products/embed",
+        "products/links",
+        "products/subscriptions",
+        "products/pos",
+        "products/commerce",
+        "products/licenses",
+        "products/rcon-products",
+        "products/style-center",
+        "products/marketing",
+        "products/analytics",
+        "products/fraud-shield",
+        "products/communities",
+        "products/plugins"
+      ]
+    },
+    {
+      "group": "API Documentation",
+      "pages": [
+        "api-reference/introduction",
+        "api-reference/authentication",
+        "api-reference/errors",
+        "api-reference/webhooks",
+        "api-reference/payments",
+        "api-reference/subscriptions-2-0",
+        "api-reference/subscriptions",
+        "api-reference/subscriptions-compare",
+        "api-reference/dynamic-products",
+        "api-reference/licenses",
+        "api-reference/payment-methods",
+        "api-reference/prefilled-links",
+        "api-reference/disputes",
+        "api-reference/sandbox"
+      ]
+    },
+    {
+      "group": "Information",
+      "pages": [
+        "api-reference/information/get-self"
+      ]
+    },
+    {
+      "group": "Payments",
+      "pages": [
+        "api-reference/payments/post-payments",
+        "api-reference/payments/put-payments",
+        "api-reference/payments/delete-payments"
+      ]
+    },
+    {
+      "group": "Orders",
+      "pages": [
+        "api-reference/orders/model",
+        "api-reference/orders/get-order",
+        "api-reference/orders/list-orders",
+        "api-reference/orders/replace-order",
+        "api-reference/orders/update-order",
+        "api-reference/orders/update-custom-fields"
+      ]
+    },
+    {
+      "group": "Customers",
+      "pages": [
+        "api-reference/customers/model",
+        "api-reference/customers/get-customer",
+        "api-reference/customers/list-customers",
+        "api-reference/customers/post-customers",
+        "api-reference/customers/put-customers",
+        "api-reference/customers/customer-balance",
+        "api-reference/customers/payment-methods"
+      ]
+    },
+    {
+      "group": "Subscriptions 2.0",
+      "pages": [
+        "api-reference/subscriptions-v2/model",
+        "api-reference/subscriptions-v2/get-subscription",
+        "api-reference/subscriptions-v2/list-subscriptions",
+        "api-reference/subscriptions-v2/cancellation-reasons",
+        "api-reference/subscriptions-v2/post-subscriptions",
+        "api-reference/subscriptions-v2/put-subscriptions",
+        "api-reference/subscriptions-v2/delete-subscriptions"
+      ]
+    },
+    {
+      "group": "Subscriptions (legacy)",
+      "pages": [
+        "api-reference/subscriptions/model",
+        "api-reference/subscriptions/get-subscription",
+        "api-reference/subscriptions/list-subscriptions",
+        "api-reference/subscriptions/post-subscriptions",
+        "api-reference/subscriptions/delete-subscriptions"
+      ]
+    },
+    {
+      "group": "Licenses",
+      "pages": [
+        "api-reference/licenses/model",
+        "api-reference/licenses/check-license",
+        "api-reference/licenses/set-hardware-id"
+      ]
+    },
+    {
+      "group": "Blacklists",
+      "pages": [
+        "api-reference/blacklists/model",
+        "api-reference/blacklists/get-blacklist",
+        "api-reference/blacklists/list-blacklists",
+        "api-reference/blacklists/post-blacklists",
+        "api-reference/blacklists/put-blacklists",
+        "api-reference/blacklists/delete-blacklists"
+      ]
+    },
+    {
+      "group": "Whitelists",
+      "pages": [
+        "api-reference/whitelists/model",
+        "api-reference/whitelists/get-whitelist",
+        "api-reference/whitelists/list-whitelists",
+        "api-reference/whitelists/post-whitelists",
+        "api-reference/whitelists/put-whitelists",
+        "api-reference/whitelists/delete-whitelists"
+      ]
+    },
+    {
+      "group": "Products",
+      "pages": [
+        "api-reference/products/model",
+        "api-reference/products/get-product",
+        "api-reference/products/list-products",
+        "api-reference/products/post-products",
+        "api-reference/products/post-products-image",
+        "api-reference/products/put-products",
+        "api-reference/products/put-products-image",
+        "api-reference/products/delete-products"
+      ]
+    },
+    {
+      "group": "Categories",
+      "pages": [
+        "api-reference/categories/model",
+        "api-reference/categories/get-category",
+        "api-reference/categories/list-categories",
+        "api-reference/categories/post-categories",
+        "api-reference/categories/put-categories",
+        "api-reference/categories/delete-categories"
+      ]
+    },
+    {
+      "group": "Groups",
+      "pages": [
+        "api-reference/groups/model",
+        "api-reference/groups/get-group",
+        "api-reference/groups/list-groups",
+        "api-reference/groups/post-groups",
+        "api-reference/groups/put-groups",
+        "api-reference/groups/delete-groups"
+      ]
+    },
+    {
+      "group": "Coupons",
+      "pages": [
+        "api-reference/coupons/model",
+        "api-reference/coupons/get-coupon",
+        "api-reference/coupons/list-coupons",
+        "api-reference/coupons/post-coupons",
+        "api-reference/coupons/put-coupons",
+        "api-reference/coupons/delete-coupons"
+      ]
+    },
+    {
+      "group": "Feedback",
+      "pages": [
+        "api-reference/feedback/model",
+        "api-reference/feedback/get-feedback",
+        "api-reference/feedback/list-feedback",
+        "api-reference/feedback/post-feedbackreply"
+      ]
+    },
+    {
+      "group": "Queries",
+      "pages": [
+        "api-reference/queries/model",
+        "api-reference/queries/get-query",
+        "api-reference/queries/list-queries",
+        "api-reference/queries/post-queriesreply",
+        "api-reference/queries/post-queriesclose",
+        "api-reference/queries/post-queriesreopen"
+      ]
+    },
+    {
+      "group": "Platforms",
+      "pages": [
+        "platforms/introduction",
+        "platforms/integration"
+      ]
+    },
+    {
+      "group": "Sub-accounts",
+      "pages": [
+        "platforms/sub-accounts/create",
+        "platforms/sub-accounts/get-custody-dashboard-link"
+      ]
+    },
+    {
+      "group": "Platform Payments",
+      "pages": [
+        "platforms/payments/create"
+      ]
+    },
+    {
+      "group": "Accept->Settle",
+      "pages": [
+        "accept-settle/introduction",
+        "accept-settle/integration"
+      ]
+    }
+  ],
+  "footerSocials": {
+    "twitter": "https://twitter.com/SellixPay",
+    "github": "https://github.com/sellix",
+    "linkedin": "https://www.linkedin.com/company/sellix-srl"
+  }
+}
